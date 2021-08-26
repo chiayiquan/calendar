@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "jest": {
+    "verbose": true
+  },
+  "scripts": {
+    "start": "bash ./scripts/start.sh",
+    "build": "npm run clean && npm run build-babel",
+    "start:build": "npm run build && node ./build/server.js",
+    "test": "bash ./scripts/test.sh",
+    "build-babel": "babel -d ./build ./src -s",
+    "clean": "rm -rf build && mkdir build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.1",
+    "uuid-random": "^1.3.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@types/jest": "^27.0.1",
+    "babel-cli": "^6.26.0",
+    "esm": "^3.2.25",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.6"
+  }
+}

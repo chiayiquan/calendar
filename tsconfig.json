@@ -1,0 +1,13 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "_assets": ["src/assets/*"],
+      "_navigations": ["src/navigations/*"],
+      "_scenes": ["src/scenes/*"],
+      "_services": ["src/services/*"],
+    }
+  },
+  "strict": true
+}
