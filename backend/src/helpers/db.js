@@ -11,6 +11,7 @@ export const query = async (q, params) => {
     client.release();
     return result.rows;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };

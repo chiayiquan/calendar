@@ -28,10 +28,7 @@ export default async function Register(request, response) {
       password: hashedPassword,
     });
     await db.query(queryObj.query, queryObj.dataArr);
-    response.status(200);
-    return response.send({
-      data: "Successfully created account.",
-    });
+    return Response.success(response, "Successfully created account.");
   } catch (error) {
     Response.error(response, "DB_ERROR", errors);
   }

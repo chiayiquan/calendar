@@ -1,4 +1,6 @@
 import * as db from "../src/helpers/db";
+import * as User from "../src/queries/user";
+import bcrypt from "bcrypt";
 
 export async function cleanDB() {
   const tableQuery =
@@ -13,4 +15,25 @@ export async function cleanDB() {
 export async function getUserByEmail(email) {
   const userQuery = `SELECT * FROM users WHERE email='${email}';`;
   return db.query(userQuery, []).then((rows) => rows[0]);
+}
+
+export async function createUser(data) {
+  const user = {
+    email:
+      data.email != null
+        ? String(data.email).toLowerCase()
+        : "test@example.com",
+    password:
+      data.password != null
+        ? await hashPassword(String(data.password))
+        : await hashPassword("random-password"),
+  };
+  const insertQuery = User.insert(user);
+  return db
+    .query(insertQuery.query, insertQuery.dataArr)
+    .then((rows) => rows[0]);
+}
+
+async function hashPassword(password) {
+  return bcrypt.hash(password, 11);
 }
