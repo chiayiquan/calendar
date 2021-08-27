@@ -28,3 +28,12 @@ export function update({ name, date, isCompleted, color, id, userId }) {
     dataArr,
   };
 }
+
+export function remove({ id, userId }) {
+  const query = 'DELETE FROM goals WHERE "id"=$1 AND "userId"=$2 RETURNING *;';
+  const dataArr = [id, userId];
+  return {
+    query,
+    dataArr,
+  };
+}

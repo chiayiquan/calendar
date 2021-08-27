@@ -46,3 +46,8 @@ export async function insertGoal(data) {
   const goalObject = Goal.insert(data);
   return db.query(goalObject.query, goalObject.dataArr).then((rows) => rows[0]);
 }
+
+export async function getGoal(userId) {
+  const goalObject = Goal.get(userId);
+  return db.query(goalObject.query, goalObject.dataArr);
+}
