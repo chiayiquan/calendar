@@ -3,7 +3,6 @@ import * as db from "../helpers/db";
 import * as Response from "../helpers/response";
 import bcrypt from "bcrypt";
 import * as Regex from "../helpers/regex";
-import * as Session from "../queries/session";
 import * as JWT from "../helpers/jwt";
 
 const errors = {
@@ -27,6 +26,7 @@ export default async function Login(request, response) {
     const user = await db
       .query(userObject.query, userObject.dataArr)
       .then((rows) => rows[0]);
+
     if (user == null) {
       return Response.error(response, "INVALID_ACCOUNT", errors);
     }
@@ -34,13 +34,7 @@ export default async function Login(request, response) {
     if (isValidPassword === false) {
       return Response.error(response, "INVALID_ACCOUNT", errors);
     }
-    const sessionObject = Session.insert(user.id);
-    const session = await db.query(sessionObject.query, sessionObject.dataArr);
-
-    if (session.length < 1) {
-      Response.error(response, "DB_ERROR", errors);
-    }
-    const jwt = JWT.issue(session.id, user.id);
+    const jwt = await JWT.issue(user.id);
 
     return Response.success(response, { id: user.id, email: user.id, jwt });
   } catch (error) {
@@ -53,6 +47,6 @@ async function comparePassword(password, hashedPassword) {
 }
 
 const checkData = (data) => ({
-  email: data.email ? String(data.email).trim().toLowerCase() : "",
-  password: data.password ? String(data.password).trim() : "",
+  email: data.email != null ? String(data.email).trim().toLowerCase() : "",
+  password: data.password != null ? String(data.password).trim() : "",
 });

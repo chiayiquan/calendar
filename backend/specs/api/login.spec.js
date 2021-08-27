@@ -14,7 +14,7 @@ describe("Test /login", () => {
     return Helper.cleanDB();
   });
   it("It should login the account", async () => {
-    const user = await Helper.createUser({});
+    const { user } = await Helper.createUser({});
     const response = await postLogin(
       {
         email: user.email,
@@ -71,13 +71,13 @@ describe("Test /login", () => {
   });
 
   it("It should return error for incorrect password", async () => {
-    const user = await Helper.createUser({
+    const { user } = await Helper.createUser({
       email: "validUser@example.com",
       password: "simple-password",
     });
     const response = await postLogin(
       {
-        email: "invalidUser@example.com",
+        email: user.email,
         password: "random-password",
       },
       400

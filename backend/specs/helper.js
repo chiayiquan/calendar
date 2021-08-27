@@ -1,5 +1,7 @@
 import * as db from "../src/helpers/db";
 import * as User from "../src/queries/user";
+import * as Session from "../src/queries/session";
+import * as JWT from "../src/helpers/jwt";
 import bcrypt from "bcrypt";
 
 export async function cleanDB() {
@@ -29,9 +31,11 @@ export async function createUser(data) {
         : await hashPassword("random-password"),
   };
   const insertQuery = User.insert(user);
-  return db
+  const updatedUser = await db
     .query(insertQuery.query, insertQuery.dataArr)
     .then((rows) => rows[0]);
+  const jwt = await JWT.issue(updatedUser.id);
+  return { user: updatedUser, jwt };
 }
 
 async function hashPassword(password) {

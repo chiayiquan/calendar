@@ -6,6 +6,8 @@ const corsOpts = {
   origin: "*",
 
   methods: ["GET", "POST"],
+
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 const app = express();
