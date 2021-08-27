@@ -1,7 +1,7 @@
 import * as db from "../src/helpers/db";
 import * as User from "../src/queries/user";
-import * as Session from "../src/queries/session";
 import * as JWT from "../src/helpers/jwt";
+import * as Goal from "../src/queries/goal";
 import bcrypt from "bcrypt";
 
 export async function cleanDB() {
@@ -40,4 +40,9 @@ export async function createUser(data) {
 
 async function hashPassword(password) {
   return bcrypt.hash(password, 11);
+}
+
+export async function insertGoal(data) {
+  const goalObject = Goal.insert(data);
+  return db.query(goalObject.query, goalObject.dataArr).then((rows) => rows[0]);
 }

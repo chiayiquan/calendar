@@ -22,7 +22,7 @@ describe("Test /add-goal", () => {
       isCompleted: false,
       color: "#FFFFFF",
     };
-    const response = await postAddGoal(goal, "invalid", 400);
+    const response = await postAddGoal(goal, "invalid-jwt", 400);
     expect(response.body.code).toBe("INVALID_JWT");
   });
 
