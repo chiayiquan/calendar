@@ -18,3 +18,13 @@ export function get(userId) {
     dataArr,
   };
 }
+
+export function update({ name, date, isCompleted, color, id, userId }) {
+  const query =
+    'UPDATE goals SET "name"=$1, "date"=$2, "isCompleted"=$3, "color"=$4 WHERE "id"=$5 AND "userId"=$6 RETURNING *;';
+  const dataArr = [name, date, isCompleted, color, id, userId];
+  return {
+    query,
+    dataArr,
+  };
+}
