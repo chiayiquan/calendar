@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  AppRegistry,
-  StyleSheet,
-  SafeAreaView,
-  Button,
-} from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Button } from "react-native";
 import Checkbox from "@react-native-community/checkbox";
 import { StatusBar } from "expo-status-bar";
-import { expo } from "./app.json";
 import {
   Calendar,
   CalendarProvider,
@@ -18,7 +10,7 @@ import {
 import moment from "moment";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function App() {
+export default function Goal() {
   const today = moment().format("YYYY-MM-DD");
   const [selectedData, setSelectedData] = useState([]);
   const [markedDate, setMarkedDate] = useState({});
@@ -239,5 +231,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-AppRegistry.registerComponent(expo.name, () => App);

@@ -26,7 +26,6 @@ export default async function Login(request, response) {
     const user = await db
       .query(userObject.query, userObject.dataArr)
       .then((rows) => rows[0]);
-
     if (user == null) {
       return Response.error(response, "INVALID_ACCOUNT", errors);
     }

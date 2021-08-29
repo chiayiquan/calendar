@@ -8,6 +8,7 @@ const errors = {
   DB_ERROR: "Unable to insert into database",
   INVALID_EMAIL: "Invalid email.",
   INVALID_PASSWORD: "Password cannot be empty.",
+  EMAIL_EXIST: "Email is already being used.",
 };
 
 export default async function Register(request, response) {
@@ -22,13 +23,19 @@ export default async function Register(request, response) {
     if (Regex.checkValidEmail(email) === false) {
       return Response.error(response, "INVALID_EMAIL", errors);
     }
+    const userObj = User.get(email);
+    const user = await db.query(userObj.query, userObj.dataArr);
+
+    if (user.length > 0) {
+      return Response.error(response, "EMAIL_EXIST", errors);
+    }
     const hashedPassword = await hashPassword(password);
     const queryObj = User.insert({
       email,
       password: hashedPassword,
     });
     await db.query(queryObj.query, queryObj.dataArr);
-    return Response.success(response, "Successfully created account.");
+    return Response.success(response, "Account created successfully.");
   } catch (error) {
     Response.error(response, "DB_ERROR", errors);
   }

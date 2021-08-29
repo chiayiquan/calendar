@@ -22,8 +22,19 @@ describe("Test /register", () => {
       200
     );
     expect(response.body).toMatchObject({
-      data: "Successfully created account.",
+      data: "Account created successfully.",
     });
+  });
+
+  it("It should return error for duplicate email", async () => {
+    const response = await postRegister(
+      {
+        email: "test@example.com",
+        password: "abc123",
+      },
+      400
+    );
+    expect(response.body.code).toBe("EMAIL_EXIST");
   });
 
   it("Password should be encrypted", async () => {
