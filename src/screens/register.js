@@ -8,6 +8,8 @@ import Input from "../components/input";
 import Button from "../components/button";
 import Line from "../components/line";
 import axios from "axios";
+import Error from "../components/error";
+import { showMessage } from "react-native-flash-message";
 
 export default function Register({ navigation }) {
   const [form, setForm] = useState({
@@ -25,6 +27,7 @@ export default function Register({ navigation }) {
     },
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const onValueChange = (type) => (value) => {
     return setForm((state) => ({
@@ -63,6 +66,7 @@ export default function Register({ navigation }) {
   };
 
   const onPress = () => {
+    setError("");
     setIsLoading(true);
     if (Regex.checkValidEmail(form.email.value) === false) {
       return setForm((state) => ({
@@ -94,11 +98,15 @@ export default function Register({ navigation }) {
         password: form.password.value.trim(),
       })
       .then((response) => {
-        const result = response.data.data;
-        console.log(result);
+        return showMessage({
+          message: "Account has been created.",
+          type: "success",
+          duration: 3000,
+          floating: true,
+        });
       })
       .catch((err) => {
-        console.log(err.response.data.message);
+        return setError(err.response.data.message);
       })
       .finally(() => setIsLoading(false));
   };
@@ -144,6 +152,7 @@ export default function Register({ navigation }) {
             isError={form.confirmPassword.isError}
             errorLabel="Confirm Password does not match."
           />
+          <Error message={error} />
           <View style={style.buttonContainer}>
             <Button
               label="Register"

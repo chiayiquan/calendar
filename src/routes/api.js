@@ -4,6 +4,10 @@ const url = "http://192.168.1.208:3000";
 const ApiRoutes = {
   login: `${url}/login`,
   register: `${url}/register`,
+  listGoal: `${url}/list-goal`,
+  addGoal: `${url}/add-goal`,
+  deleteGoal: `${url}/delete-goal`,
+  updateGoal: `${url}/update-goal`,
 };
 
 export default ApiRoutes;

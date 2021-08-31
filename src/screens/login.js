@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import * as Styles from "../components/styles";
 import * as Regex from "../components/regex";
@@ -8,6 +8,9 @@ import Input from "../components/input";
 import Button from "../components/button";
 import Line from "../components/line";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CredentialsContext } from "../components/credentialsContext";
+import Error from "../components/error";
 
 export default function Login({ navigation }) {
   const [form, setForm] = useState({
@@ -21,6 +24,8 @@ export default function Login({ navigation }) {
     },
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { setStoredCredentials } = useContext(CredentialsContext);
 
   const onValueChange = (type) => (value) => {
     return setForm((state) => ({
@@ -51,6 +56,7 @@ export default function Login({ navigation }) {
   };
 
   const onPress = () => {
+    setError(false);
     setIsLoading(true);
     if (Regex.checkValidEmail(form.email.value) === false) {
       return setForm((state) => ({
@@ -74,10 +80,17 @@ export default function Login({ navigation }) {
       })
       .then((response) => {
         const result = response.data.data;
-        console.log(result);
+        return AsyncStorage.setItem("goalSetting", JSON.stringify(result))
+          .then(() => {
+            setStoredCredentials(result);
+          })
+          .catch((error) => {
+            setError("Permission issue with local storage.");
+            console.log(error);
+          });
       })
       .catch((err) => {
-        console.log(err.response.data.message);
+        return setError(err.response.data.message);
       })
       .finally(() => setIsLoading(false));
   };
@@ -120,6 +133,7 @@ export default function Login({ navigation }) {
             isError={form.password.isError}
             errorLabel="Password cannot be empty."
           />
+          <Error message={error} />
           <View style={style.buttonContainer}>
             <Button
               label="Login"

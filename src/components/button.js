@@ -12,6 +12,7 @@ export default function Button({
   disabled = false,
   color = colorScheme.blue,
   isLoading = false,
+  textStyle = {},
 }) {
   return (
     <TouchableOpacity
@@ -26,7 +27,9 @@ export default function Button({
       {isLoading ? (
         <ActivityIndicator size="large" color="white" />
       ) : (
-        <Text style={style.buttonText}>{label.toUpperCase()}</Text>
+        <Text style={{ ...style.buttonText, ...textStyle }}>
+          {label.toUpperCase()}
+        </Text>
       )}
     </TouchableOpacity>
   );
@@ -49,5 +52,9 @@ export const colorScheme = {
   blue: {
     enabled: "#2196f3",
     disabled: "#6ab8f7",
+  },
+  transparent: {
+    enabled: "transparent",
+    disabled: "transparent",
   },
 };
