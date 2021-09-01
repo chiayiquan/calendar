@@ -7,4 +7,7 @@ export const dbConfig =
         password: process.env.PASSWORD,
         database: process.env.DATABASE,
       }
-    : process.env.DATABASE_URL;
+    : {
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
+      };
