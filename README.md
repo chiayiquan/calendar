@@ -7,29 +7,29 @@ This project is build with react native with expo for the mobile application and
 1. Install all the dependencies of the project by running: npm i  
 2. To run the application, there is a few ways.
     - <b>Running on mobile devices</b>
-    - Install Expo Go from your device app store (android google play store, ios apple app store)
-    - Start the mobile app by running: npm start
-    - In the terminal or in the browser, there should be a QR code. Scan the QR code with the Expo Go app.
-    - The app should be opened up, skip to the <b>Setting Up Backend Environment</b> section
+        - Install Expo Go from your device app store (android google play store, ios apple app store)
+        - Start the mobile app by running: npm start
+        - In the terminal or in the browser, there should be a QR code. Scan the QR code with the Expo Go app.
+        - The app should be opened up, skip to the <b>Setting Up Backend Environment</b> section
 
     - <b>Running on android emulator</b>
-    - Install Android Studio <a href="https://developer.android.com/studio">here</a>
-    - Go through the installation and start Android Studio after the setup is complete
-    - When Android Studio is opened, select "More Actions" dropdown and select AVD Manager.
-    - Click on "Create Virtual Device", select any Phone (used pixel 5 for development) and press next, 
-    download and choose the latest android release (R) and click next, click on the "Show Advanced Setting" button
-    and scroll down, increase the Internal Storage to at least 12GB and increase the ram if you want better performance
-    and click finish.
-    - Click on the play button of the device, it will take sometimes to load.
-    - Once loaded, go back to the project and open a terminal, run: npm start
-    - In the terminal, press a to connect to the android emulator or in the browser, click run on Android device/emulator
+        - Install Android Studio <a href="https://developer.android.com/studio">here</a>
+        - Go through the installation and start Android Studio after the setup is complete
+        - When Android Studio is opened, select "More Actions" dropdown and select AVD Manager.
+        - Click on "Create Virtual Device", select any Phone (used pixel 5 for development) and press next, 
+        download and choose the latest android release (R) and click next, click on the "Show Advanced Setting" button
+        and scroll down, increase the Internal Storage to at least 12GB and increase the ram if you want better performance
+        and click finish.
+        - Click on the play button of the device, it will take sometimes to load.
+        - Once loaded, go back to the project and open a terminal, run: npm start
+        - In the terminal, press a to connect to the android emulator or in the browser, click run on Android device/emulator
 
     - <b>Running on ios emulator</b>
-    - Install <a href="https://developer.apple.com/xcode/">Xcode</a> to run emulator on ios available for macos only
-    - Because I do not own any macos, therefore, unable to give a very clear instruction for ios, but refer to this
-    guide <a href="https://developer.apple.com/documentation/xcode/running-your-app-in-the-simulator-or-on-a-device">here</a>.
-    - Once the emulator is running, go back to the project and open a terminal, run: npm start
-    - In the browser, click run on IOS emulator
+        - Install <a href="https://developer.apple.com/xcode/">Xcode</a> to run emulator on ios available for macos only
+        - Because I do not own any macos, therefore, unable to give a very clear instruction for ios, but refer to this
+        guide <a href="https://developer.apple.com/documentation/xcode/running-your-app-in-the-simulator-or-on-a-device">here</a>.
+        - Once the emulator is running, go back to the project and open a terminal, run: npm start
+        - In the browser, click run on IOS emulator
 
 # Setting Up Backend
 
