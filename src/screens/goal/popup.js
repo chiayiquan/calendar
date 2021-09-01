@@ -201,7 +201,7 @@ export default function Popup({
         <Error message={error} />
         <View style={{ margin: 5 }}>
           <Button
-            label={isEdit ? "Update Task" : "Add Task"}
+            label={isEdit ? "Update Goal" : "Add Goal"}
             onPress={create}
             disabled={isDisabled || isLoading}
             isLoading={isLoading}

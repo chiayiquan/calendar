@@ -2,7 +2,7 @@ export const dbConfig =
   process.env.NODE_ENV != "production"
     ? {
         host: process.env.HOST,
-        port: process.env.PORT,
+        port: process.env.DB_PORT,
         user: process.env.USER,
         password: process.env.PASSWORD,
         database: process.env.DATABASE,

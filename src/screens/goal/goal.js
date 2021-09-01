@@ -60,31 +60,7 @@ export default function Goal() {
           name: entry.name,
           userId: entry.userId,
         }));
-        const markData = cleanedData.reduce(
-          (accumulator, currentValue) => {
-            const key = currentValue.date;
-
-            return {
-              ...accumulator,
-              [currentValue.date]: {
-                ...(accumulator[currentValue.date] || {
-                  ...defaultMarkedValue,
-                  selected: selectedDate === currentValue.date,
-                }),
-                dots: [
-                  ...(accumulator[key]?.dots || []),
-                  { color: currentValue.color, key: currentValue.id },
-                ],
-              },
-            };
-          },
-          { [today]: { ...defaultMarkedValue } }
-        );
-        setData(cleanedData);
-        setMarkedDate(markData);
-        return setSelectedData(
-          cleanedData.filter((entry) => entry.date === selectedDate)
-        );
+        return setData(cleanedData);
       } catch (error) {
         return showMessage({
           message: error.response.data.message,
