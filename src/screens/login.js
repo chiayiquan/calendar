@@ -11,6 +11,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CredentialsContext } from "../components/credentialsContext";
 import Error from "../components/error";
+import KeyboardWrapper from "../components/keyboardWrapper";
 
 export default function Login({ navigation }) {
   const [form, setForm] = useState({
@@ -102,59 +103,61 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <View style={style.container}>
-      <StatusBar style="dark" />
-      <View style={style.contentContainer}>
-        {/* Update the logo source here */}
-        <Image
-          style={style.logo}
-          resizeMode="cover"
-          source={require("../assets/icon.png")}
-        />
-        <Text style={style.title}>Login</Text>
-        <View style={style.form}>
-          <Input
-            label="Email"
-            inputValue={form.email.value}
-            inputOnChange={onValueChange("email")}
-            keyboardType="email-address"
-            leftIconName="mail"
-            onBlur={() => onBlur("email")}
-            isError={form.email.isError}
-            errorLabel="Email is invalid."
+    <KeyboardWrapper>
+      <View style={style.container}>
+        <StatusBar style="dark" />
+        <View style={style.contentContainer}>
+          {/* Update the logo source here */}
+          <Image
+            style={style.logo}
+            resizeMode="cover"
+            source={require("../assets/icon.png")}
           />
-          <Input
-            label="Password"
-            inputValue={form.password.value}
-            inputOnChange={onValueChange("password")}
-            secureTextEntry={true}
-            leftIconName="lock"
-            onBlur={() => onBlur("password")}
-            isError={form.password.isError}
-            errorLabel="Password cannot be empty."
-          />
-          <Error message={error} />
-          <View style={style.buttonContainer}>
-            <Button
-              label="Login"
-              onPress={onPress}
-              disabled={!isButtonDisabled() || isLoading}
-              isLoading={isLoading}
+          <Text style={style.title}>Login</Text>
+          <View style={style.form}>
+            <Input
+              label="Email"
+              inputValue={form.email.value}
+              inputOnChange={onValueChange("email")}
+              keyboardType="email-address"
+              leftIconName="mail"
+              onBlur={() => onBlur("email")}
+              isError={form.email.isError}
+              errorLabel="Email is invalid."
             />
-          </View>
-          <Line />
-          <View style={style.registerContainer}>
-            <Text>Don't have an account already? </Text>
-            <TouchableOpacity
-              style={style.linkContainer}
-              onPress={() => navigation.navigate("Register")}
-            >
-              <Text style={style.linkText}>Sign Up</Text>
-            </TouchableOpacity>
+            <Input
+              label="Password"
+              inputValue={form.password.value}
+              inputOnChange={onValueChange("password")}
+              secureTextEntry={true}
+              leftIconName="lock"
+              onBlur={() => onBlur("password")}
+              isError={form.password.isError}
+              errorLabel="Password cannot be empty."
+            />
+            <Error message={error} />
+            <View style={style.buttonContainer}>
+              <Button
+                label="Login"
+                onPress={onPress}
+                disabled={!isButtonDisabled() || isLoading}
+                isLoading={isLoading}
+              />
+            </View>
+            <Line />
+            <View style={style.registerContainer}>
+              <Text>Don't have an account already? </Text>
+              <TouchableOpacity
+                style={style.linkContainer}
+                onPress={() => navigation.navigate("Register")}
+              >
+                <Text style={style.linkText}>Sign Up</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </KeyboardWrapper>
   );
 }
 

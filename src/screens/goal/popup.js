@@ -10,6 +10,7 @@ import colorData from "../../assets/color.json";
 import { Picker } from "@react-native-picker/picker";
 import CustomDatePicker from "../../components/customDatePicker";
 import Error from "../../components/error";
+import KeyboardWrapper from "../../components/keyboardWrapper";
 
 export default function Popup({
   isOpen = false,
@@ -44,7 +45,12 @@ export default function Popup({
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(goal).length > 0) setIsEdit(true);
+    if (Object.keys(goal).length > 0) {
+      setIsEdit(true);
+    } else {
+      setIsEdit(false);
+    }
+
     setFormData({
       id: goal.id || "",
       date: {
@@ -130,84 +136,86 @@ export default function Popup({
   };
   return (
     <Modal visible={isOpen} animationType="slide">
-      <View>
-        <View style={styles.closeIcon}>
-          <Text style={styles.header}>Add Goal</Text>
-          <IconButton iconName="close" onPress={onClose} />
-        </View>
+      <KeyboardWrapper>
+        <View>
+          <View style={styles.closeIcon}>
+            <Text style={styles.header}>Add Goal</Text>
+            <IconButton iconName="close" onPress={onClose} />
+          </View>
 
-        <Input
-          label="Goal Name"
-          inputValue={formData.name.value}
-          inputOnChange={onValueChange("name")}
-          leftIconName="note"
-          onBlur={() => onBlur("name")}
-          isError={formData.name.isError}
-          errorLabel="Name cannot be empty."
-        />
+          <Input
+            label="Goal Name"
+            inputValue={formData.name.value}
+            inputOnChange={onValueChange("name")}
+            leftIconName="note"
+            onBlur={() => onBlur("name")}
+            isError={formData.name.isError}
+            errorLabel="Name cannot be empty."
+          />
 
-        <View style={styles.fieldContainer}>
-          <Text style={{ fontSize: 13 }}>Color:</Text>
-          <View>
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: formData.color.value,
-                left: 15,
-                top: 10,
-                position: "absolute",
-                zIndex: 1,
-              }}
-            />
-            <View style={{ borderWidth: 1 }}>
-              <Picker
-                selectedValue={formData.color.value}
-                onValueChange={onValueChange("color")}
-                style={{ padding: 20, marginLeft: 30 }}
-              >
-                {colorData.map((color) => (
-                  <Picker.Item
-                    label={color.name}
-                    value={color.hexString}
-                    key={color.hexString}
-                  />
-                ))}
-              </Picker>
+          <View style={styles.fieldContainer}>
+            <Text style={{ fontSize: 13 }}>Color:</Text>
+            <View>
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: formData.color.value,
+                  left: 15,
+                  top: 10,
+                  position: "absolute",
+                  zIndex: 1,
+                }}
+              />
+              <View style={{ borderWidth: 1 }}>
+                <Picker
+                  selectedValue={formData.color.value}
+                  onValueChange={onValueChange("color")}
+                  style={{ padding: 20, marginLeft: 30 }}
+                >
+                  {colorData.map((color) => (
+                    <Picker.Item
+                      label={color.name}
+                      value={color.hexString}
+                      key={color.hexString}
+                    />
+                  ))}
+                </Picker>
+              </View>
             </View>
           </View>
+          <View style={styles.fieldContainer}>
+            <Text style={{ fontSize: 13 }}>Date:</Text>
+            <CustomDatePicker
+              date={formData.date.value}
+              setDate={onValueChange("date")}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              margin: 5,
+            }}
+          >
+            <Text style={{ fontSize: 13 }}>Completed:</Text>
+            <Switch
+              onValueChange={onValueChange("isCompleted")}
+              value={formData.isCompleted.value}
+            />
+          </View>
+          <Error message={error} />
+          <View style={{ margin: 5 }}>
+            <Button
+              label={isEdit ? "Update Goal" : "Add Goal"}
+              onPress={create}
+              disabled={isDisabled || isLoading}
+              isLoading={isLoading}
+            />
+          </View>
         </View>
-        <View style={styles.fieldContainer}>
-          <Text style={{ fontSize: 13 }}>Date:</Text>
-          <CustomDatePicker
-            date={formData.date.value}
-            setDate={onValueChange("date")}
-          />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            margin: 5,
-          }}
-        >
-          <Text style={{ fontSize: 13 }}>Completed:</Text>
-          <Switch
-            onValueChange={onValueChange("isCompleted")}
-            value={formData.isCompleted.value}
-          />
-        </View>
-        <Error message={error} />
-        <View style={{ margin: 5 }}>
-          <Button
-            label={isEdit ? "Update Goal" : "Add Goal"}
-            onPress={create}
-            disabled={isDisabled || isLoading}
-            isLoading={isLoading}
-          />
-        </View>
-      </View>
+      </KeyboardWrapper>
     </Modal>
   );
 }

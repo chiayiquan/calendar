@@ -10,6 +10,7 @@ import Line from "../components/line";
 import axios from "axios";
 import Error from "../components/error";
 import { showMessage } from "react-native-flash-message";
+import KeyboardWrapper from "../components/keyboardWrapper";
 
 export default function Register({ navigation }) {
   const [form, setForm] = useState({
@@ -117,63 +118,65 @@ export default function Register({ navigation }) {
     );
   };
   return (
-    <View style={style.container}>
-      <StatusBar style="dark" />
-      <View style={style.contentContainer}>
-        <Text style={style.title}>Register</Text>
-        <View style={style.form}>
-          <Input
-            label="Email"
-            inputValue={form.email.value}
-            inputOnChange={onValueChange("email")}
-            keyboardType="email-address"
-            leftIconName="mail"
-            onBlur={() => onBlur("email")}
-            isError={form.email.isError}
-            errorLabel="Email is invalid."
-          />
-          <Input
-            label="Password"
-            inputValue={form.password.value}
-            inputOnChange={onValueChange("password")}
-            secureTextEntry={true}
-            leftIconName="lock"
-            onBlur={() => onBlur("password")}
-            isError={form.password.isError}
-            errorLabel="Password cannot be empty."
-          />
-          <Input
-            label="Confirm Password"
-            inputValue={form.confirmPassword.value}
-            inputOnChange={onValueChange("confirmPassword")}
-            secureTextEntry={true}
-            leftIconName="lock"
-            onBlur={() => onBlur("confirmPassword")}
-            isError={form.confirmPassword.isError}
-            errorLabel="Confirm Password does not match."
-          />
-          <Error message={error} />
-          <View style={style.buttonContainer}>
-            <Button
-              label="Register"
-              onPress={onPress}
-              disabled={!isButtonDisabled() || isLoading}
-              isLoading={isLoading}
+    <KeyboardWrapper>
+      <View style={style.container}>
+        <StatusBar style="dark" />
+        <View style={style.contentContainer}>
+          <Text style={style.title}>Register</Text>
+          <View style={style.form}>
+            <Input
+              label="Email"
+              inputValue={form.email.value}
+              inputOnChange={onValueChange("email")}
+              keyboardType="email-address"
+              leftIconName="mail"
+              onBlur={() => onBlur("email")}
+              isError={form.email.isError}
+              errorLabel="Email is invalid."
             />
-          </View>
-          <Line />
-          <View style={style.registerContainer}>
-            <Text>Have an account already? </Text>
-            <TouchableOpacity
-              style={style.linkContainer}
-              onPress={() => navigation.navigate("Login")}
-            >
-              <Text style={style.linkText}>Back to login page</Text>
-            </TouchableOpacity>
+            <Input
+              label="Password"
+              inputValue={form.password.value}
+              inputOnChange={onValueChange("password")}
+              secureTextEntry={true}
+              leftIconName="lock"
+              onBlur={() => onBlur("password")}
+              isError={form.password.isError}
+              errorLabel="Password cannot be empty."
+            />
+            <Input
+              label="Confirm Password"
+              inputValue={form.confirmPassword.value}
+              inputOnChange={onValueChange("confirmPassword")}
+              secureTextEntry={true}
+              leftIconName="lock"
+              onBlur={() => onBlur("confirmPassword")}
+              isError={form.confirmPassword.isError}
+              errorLabel="Confirm Password does not match."
+            />
+            <Error message={error} />
+            <View style={style.buttonContainer}>
+              <Button
+                label="Register"
+                onPress={onPress}
+                disabled={!isButtonDisabled() || isLoading}
+                isLoading={isLoading}
+              />
+            </View>
+            <Line />
+            <View style={style.registerContainer}>
+              <Text>Have an account already? </Text>
+              <TouchableOpacity
+                style={style.linkContainer}
+                onPress={() => navigation.navigate("Login")}
+              >
+                <Text style={style.linkText}>Back to login page</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </KeyboardWrapper>
   );
 }
 
